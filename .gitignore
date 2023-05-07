@@ -1,0 +1,5 @@
+*.o
+objs
+.vscode
+,git
+.DS_Store

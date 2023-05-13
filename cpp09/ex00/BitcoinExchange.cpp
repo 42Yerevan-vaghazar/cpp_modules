@@ -21,6 +21,7 @@ namespace ft
 		if (pos !=  std::string::npos) {
 			first = line.substr(0, pos);
 			second = line.substr(pos + 1);
+			// std::cout << "second = " << second << std::endl;
 		} else {
 			throw std::logic_error("bad input");
 		}
@@ -101,6 +102,7 @@ double BitcoinExchange::exchange(const std::string &date, float amount) const {
 		++pair.first;
 	}
 	--pair.first;
+	
 	return (strtod(pair.first->second.c_str(), NULL) * amount);
 };
 
@@ -214,6 +216,7 @@ void parseFile(const std::string &fileName, BitcoinExchange &data) {
 				isValidDate(pair.first);
 			} catch(const std::exception& e) {
 				std::cerr << "Error: " << e.what() << "." << std::endl;
+				continue ;
 			}
 			float amount = std::strtod(pair.second.c_str(), NULL);
 			printExchangeMessage(pair.first, amount, data.exchange(pair.first, amount));

@@ -40,11 +40,11 @@ void ClapTrap::attack(const std::string& target) {
     else if (m_energy <= 0)
         std::cout << "ClapTrap " << m_name << "has died." << std::endl;
     else
-        std::cout << "ClapTrap " << m_name << "need being Repaired." << std::endl;
+        std::cout << "ClapTrap " << m_name << "needs being Repaired." << std::endl;
 };
 
 void ClapTrap::takeDamage(unsigned int amount) {
-    if (m_energy > 0 && m_hit > 0) {
+    if (m_hit > 0) {
         std::cout << "ClapTrap " << m_name << " lost " << amount << " amount of hit point." << std::endl;
         m_hit -= amount;
     }

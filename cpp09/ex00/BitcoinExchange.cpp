@@ -130,7 +130,11 @@ bool isValidDate(const std::string &date) {
 	}
 	errno = 0;
 	std::strtol(arr[0].c_str(), NULL, 10);
-	if (errno == ERANGE || arr[1] > "12" || arr[2] == "00") {
+	if (errno == ERANGE
+		|| arr[1].size() != 2
+		|| arr[2].size() != 2
+		|| arr[1] > "12"
+		|| arr[2] == "00") {
 		throw std::logic_error("bad inputa");
 		return (false);
 	}

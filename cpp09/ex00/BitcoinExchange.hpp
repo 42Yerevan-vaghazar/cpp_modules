@@ -23,7 +23,7 @@ class BitcoinExchange
         std::string getValue(const std::string &date) const;
         double exchange(const std::string &date, float amount) const;
     private:
-        Map m_data;
+        Map m_dataVector;
 };
 
 bool isValidDate(const std::string &date);

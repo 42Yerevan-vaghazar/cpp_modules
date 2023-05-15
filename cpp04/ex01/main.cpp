@@ -27,3 +27,15 @@ int main()
     // system("leaks animal");
     return 0;
 }
+
+// void func(const Cat* j) {
+//     delete [] j ;
+// }
+
+// int main()
+// {
+//     const Cat* j = new Cat[5] ;
+//     func(j);
+
+//     // delete [] j ;
+// }

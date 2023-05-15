@@ -8,11 +8,12 @@
 
 int main( void ) {
 	DiamondTrap c("barev");
-	c.whoAmI();
+	DiamondTrap test(DiamondTrap(DiamondTrap(DiamondTrap())));
+	// c.whoAmI();
 	c.attack("poxos");
-	c.takeDamage(11);
-	c.beRepaired(120);
-	c.guardGate();
-	c.highFivesGuys();
+	// c.takeDamage(11);
+	// c.beRepaired(120);
+	// c.guardGate();
+	// c.highFivesGuys();
 	return 0;
 }

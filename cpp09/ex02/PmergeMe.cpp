@@ -42,7 +42,6 @@ void PmergeMe::sortVector() {
     mergeSort(m_dataVector, 0, m_dataVector.size());
 };
 
-
 void PmergeMe::sortList() {
     if (m_dataList.size() < 1) {
         throw std::logic_error("vector is empty");
@@ -51,21 +50,11 @@ void PmergeMe::sortList() {
 };
 
 void PmergeMe::printDataVector() const { 
-    for (pairVectorIt it(m_dataVector.begin(), m_dataVector.end());
-        it.first != it.second; ++it.first)
-    {
-        std::cout << *it.first << " ";
-    }
-    std::cout << std::endl;
+    printData(m_dataVector);
 };
 
 void PmergeMe::printDataList() const { 
-    for (std::pair<std::list<int>::const_iterator, std::list<int>::const_iterator> it(m_dataList.begin(), m_dataList.end());
-        it.first != it.second; ++it.first)
-    {
-        std::cout << *it.first << " ";
-    }
-    std::cout << std::endl;
+    printData(m_dataList);
 };
 
 bool PmergeMe::isSortedVector() const {
@@ -76,48 +65,24 @@ bool PmergeMe::isSortedList() const {
     return(isSortedContainer(m_dataList));
 };
 
-void insertionSort(Vector &data) {
-    const int vecSize = data.size();
-    if (vecSize <= 1) {
-        return ;
-    }
-    for (int i = 1; i < vecSize; ++i) {
-        for (int j = i; j != 0 && data[j] < data[j - 1]; --j) {
-            std::swap(data[j], data[j - 1]);
-        }
-    }
-}
-
-void insertionSort(List &data) {
-    pairListIt it(data.begin(), data.end());
-    const int vecSize = data.size();
-    if (vecSize <= 1) {
-        return ;
-    }
-    List::iterator begin(data.begin());
-    for (pairListIt it(begin, data.end()); it.first != it.second; ++it.first) {
-        for (pairListIt key(it.first, it.first); key.first != begin && *key.first < *(--key.second); --key.first) {
-            std::swap(*key.first, *key.second);
-        }
-    }
-}
-
 void merge(Vector &data, const int begin, const int mid, const int end) {
     Vector data1(data.begin() + begin, data.begin() + mid);
     Vector data2(data.begin() + mid, data.begin() + end);
-    size_t i = 0;
-    size_t j = 0;
+    int data1Size = data1.size();
+    int data2Size = data2.size();
+    int i = 0;
+    int j = 0;
     Vector result;
-    while (i < data1.size() && j < data2.size()) {
+    while (i < data1Size && j < data2Size) {
         if (data1[i] < data2[j]) {
             result.push_back(data1[i++]);
         } else
             result.push_back(data2[j++]);
     }
-    while (j < data2.size()) {
+    while (j < data2Size) {
         result.push_back(data2[j++]);
     }
-    while (i < data1.size()) {
+    while (i < data1Size) {
         result.push_back(data1[i++]);
     }
     int index = begin;
@@ -127,37 +92,15 @@ void merge(Vector &data, const int begin, const int mid, const int end) {
     }
 };
 
-void mergeSort(Vector &data, const int begin, const int end) {
-    if ((end - begin) <= 16) {
-        Vector arr1(data.begin() + begin, data.begin() + end);
-        insertionSort(arr1);
-        int i = begin;
-        for (pairVectorIt it(arr1.begin(), arr1.end());
-            it.first != it.second ; ++it.first) {
-            data[i++] = *it.first;
-        }
-        return ;
-    }
-    const int mid = begin + (end - begin) / 2;
-    mergeSort(data, begin, mid);
-    mergeSort(data, mid, end);
-    merge(data, begin, mid, end);
-}
+
 
 void merge(List &data, const int begin, const int mid, const int end) {
     List::iterator itBegin = data.begin();
     List::iterator itMid = data.begin();
     List::iterator itEnd = data.begin();
-    
-    for (int start = 0; start < begin; start++) {
-        ++itBegin;
-    }
-    for (int start = 0; start < mid; start++) {
-        ++itMid;
-    }
-    for (int start = 0; start < end; start++) {
-        ++itEnd;
-    }
+    std::advance(itBegin, begin);
+    std::advance(itMid, mid);
+    std::advance(itEnd, end);
     List data1(itBegin, itMid);
     List data2(itMid, itEnd);
     List result;
@@ -183,17 +126,29 @@ void merge(List &data, const int begin, const int mid, const int end) {
     }
 };
 
+void mergeSort(Vector &data, const int begin, const int end) {
+    if ((end - begin) <= 16) {
+        Vector arr1(data.begin() + begin, data.begin() + end);
+        insertionSort(arr1);
+        int i = begin;
+        for (pairVectorIt it(arr1.begin(), arr1.end());
+            it.first != it.second ; ++it.first) {
+            data[i++] = *it.first;
+        }
+        return ;
+    }
+    const int mid = begin + (end - begin) / 2;
+    mergeSort(data, begin, mid);
+    mergeSort(data, mid, end);
+    merge(data, begin, mid, end);
+}
+
 void mergeSort(List &data, const int begin, const int end) {
     if ((end - begin) <= 16) {
         List::iterator itBegin = data.begin();
         List::iterator itEnd = data.begin();
-        
-        for (int start = 0; start < begin; start++) {
-            ++itBegin;
-        }
-        for (int start = 0; start < end; start++) {
-            ++itEnd;
-        }
+        std::advance(itBegin, begin);
+        std::advance(itEnd, end);
         List arr1(itBegin, itEnd);
         insertionSort(arr1);
         List::iterator itBeginTmp = itBegin;

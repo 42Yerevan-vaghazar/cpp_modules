@@ -57,7 +57,7 @@ BitcoinExchange::BitcoinExchange(const std::string &dbFileName) {
 				}
 				// std::cout << isValidLine(pair.first);
 				// std::cout << std::endl;
-				m_data.insert(pair);
+				m_dataVector.insert(pair);
 			} catch(const std::exception& e) {
 				continue ;
 				// std::cerr << e.what() << '\n';
@@ -75,29 +75,29 @@ BitcoinExchange::~BitcoinExchange() {};
 // BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &obj);
 
 std::string BitcoinExchange::getValue(const std::string &date) const {
-	Map::const_iterator it = m_data.find(date);
+	Map::const_iterator it = m_dataVector.find(date);
 
-	if (it == m_data.end()) {
+	if (it == m_dataVector.end()) {
 		throw std::logic_error("there is not such date");
 	}
 	return (it->second);
 };
 
 void BitcoinExchange::setValue(const std::string &date, const std::string &value) {
-	m_data[date] = value;
+	m_dataVector[date] = value;
 };
 
 double BitcoinExchange::exchange(const std::string &date, float amount) const {
 	Map::const_iterator it;
 
-	if (m_data.size() < 1) {
+	if (m_dataVector.size() < 1) {
 		throw std::logic_error("there is not data");
 	}
-	it = m_data.find(date);
-	if (it != m_data.end()) {
+	it = m_dataVector.find(date);
+	if (it != m_dataVector.end()) {
 		return (strtod(it->second.c_str(), NULL) * amount);
 	}
-	std::pair<Map::const_iterator, Map::const_iterator> pair(m_data.begin(), m_data.end());
+	std::pair<Map::const_iterator, Map::const_iterator> pair(m_dataVector.begin(), m_dataVector.end());
 	while (pair.first != pair.second && pair.first->first < date) {
 		++pair.first;
 	}
@@ -183,7 +183,7 @@ bool isValidLine(const std::string &line) {
 };
 
 void BitcoinExchange::printDB(void) const {
-	std::pair<Map::const_iterator,Map::const_iterator> it( m_data.begin(), m_data.end());
+	std::pair<Map::const_iterator,Map::const_iterator> it( m_dataVector.begin(), m_dataVector.end());
 
 	while (it.first != it.second) {
 		std::cout << it.first->first << " : " << it.first->second << std::endl;

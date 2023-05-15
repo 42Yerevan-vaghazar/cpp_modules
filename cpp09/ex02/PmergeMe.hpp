@@ -6,34 +6,35 @@
 typedef std::vector<int> Vector;
 typedef std::list<int> List;
 typedef std::pair<std::vector<int>::const_iterator, std::vector<int>::const_iterator> pairVectorIt;
-typedef std::pair<std::list<int>::const_iterator, std::list<int>::const_iterator> pairListIt;
+typedef std::pair<std::list<int>::iterator, std::list<int>::iterator> pairListIt;
 
 class PmergeMe
 {
     public:
         PmergeMe();
-        template <typename container>
-        PmergeMe(container cont) : m_data(cont.begin(), cont.end()) {};
-        template <typename InputIterator>
-        PmergeMe(InputIterator begin, InputIterator end) : m_data(begin, end) {};
+        PmergeMe(Vector data);
+        PmergeMe(List data);
         PmergeMe(const PmergeMe &rhs);
         ~PmergeMe();
         PmergeMe &operator=(const PmergeMe &rhs);
-        void addNum(int);
+        void fillContainer(Vector data);
+        void fillContainer(List data);
+        void fillContainer(int N);
         void sortVector();
         void sortList();
-        void printData() const;
-        bool isSorted();
+        void printDataVector() const;
+        void printDataList() const;
+        bool isSortedVector() const;
+        bool isSortedList() const;
     private:
-        Vector m_data;
+        Vector m_dataVector;
         List   m_dataList;
 };
 
-
-Vector sort(Vector data1, Vector data2);
 void insertionSort(Vector &data);
+void insertionSort(List &data);
 void mergeSort(Vector &data, const int begin, const int end);
-void printVector(const Vector &data);
+void mergeSort(List &data, const int begin, const int end);
 
 template <typename container>
 bool isSortedContainer(container c) {

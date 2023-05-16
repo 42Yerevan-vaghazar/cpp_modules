@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <sys/time.h>
+#include <iomanip>
 
 typedef std::vector<int> Vector;
 typedef std::list<int> List;
@@ -22,17 +24,20 @@ class PmergeMe
         void fillContainer(int N);
         void sortVector();
         void sortList();
+        void printDataBefore() const;
         void printDataVector() const;
         void printDataList() const;
         bool isSortedVector() const;
         bool isSortedList() const;
     private:
+        Vector m_dataBefore;
         Vector m_dataVector;
         List   m_dataList;
 };
 
-void mergeSort(Vector &data, const int begin, const int end);
-void mergeSort(List &data, const int begin, const int end);
+void        mergeSort(Vector &data, const int begin, const int end);
+void        mergeSort(List &data, const int begin, const int end);
+long double	get_current_time(void);
 
 template <typename Container>
 void printData(const Container &c) {

@@ -5,30 +5,29 @@
 typedef std::map<std::string, std::string> Map;
 typedef std::pair<std::string, std::string> Pair;
 
-// enum DaysOfMonths
-// {
-
-// }
+namespace ft
+{
+	bool isNumber(const std::string& s);
+	std::pair<std::string, std::string> divide(const std::string &line, char del);
+	inline std::string &strTrim(std::string &str);
+    inline bool isLeapYear(int year);
+}
 
 class BitcoinExchange
 {
     public:
         BitcoinExchange();
         BitcoinExchange(const std::string &dbFileName);
-        BitcoinExchange(const BitcoinExchange &obj);
+        BitcoinExchange(const BitcoinExchange &rhs);
         ~BitcoinExchange();
-        BitcoinExchange &operator=(const BitcoinExchange &obj);
+        BitcoinExchange &operator=(const BitcoinExchange &rhs);
         void printDB(void) const;
-        void setValue(const std::string &date, const std::string &value);
-        std::string getValue(const std::string &date) const;
+        void run(const std::string &inputFile);
+    private:
         double exchange(const std::string &date, float amount) const;
+        void ValidDate(const std::string &date);
+        void ValidValue(const std::string &value);
+        void printExchangeMessage(const std::string &date, float amount, double exchanged);
     private:
         Map m_dataVector;
 };
-
-bool isValidDate(const std::string &date);
-std::pair<std::string, std::string>  divide(const std::string &line, char del);
-bool isValidLine(const std::string &line);
-inline std::string &strTrim(std::string &str);
-void parseFile(const std::string &fileName, BitcoinExchange &data);
-void printExchangeMessage(const std::string &date, float amount, double exchanged);

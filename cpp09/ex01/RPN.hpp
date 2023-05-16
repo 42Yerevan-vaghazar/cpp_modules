@@ -15,9 +15,9 @@ enum
 namespace rpn
 {
     typedef std::pair<int, char> pair;
-    bool isOperand(int operand);
-    int retOperand(char operand);
-    int calculate(int a, int b, int operand);
+    bool isOperator(int symbol);
+    int retOperator(int symbol);
+    int calculate(int operand1, int operand2, int symbol);
     bool isNumber(const std::string& s);
 };
 
@@ -29,8 +29,8 @@ class RPN
         ~RPN();
         RPN &operator=(const RPN &rhs);
         int solveExperssion(const std::string &str);
-        // void addExpression(unsigned short parameter, short operand);
-        // int calculateExpression(int last);
+    private:
+        void ValidNum(const std::string &str);
     private:
         std::stack<int> m_stack;
 };

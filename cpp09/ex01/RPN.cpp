@@ -2,36 +2,39 @@
 
 namespace rpn
 {
-    bool isOperand(int operand) {
-        return (operand == addition
-        || operand == subtraction
-        || operand == multiplication
-        || operand == division);
+    bool isOperand(int symbol) {
+        return (symbol == addition
+        || symbol == subtraction
+        || symbol == multiplication
+        || symbol == division);
     }
 
-    int retOperand(char operand) {
-        if (operand == '/')
+    int retOperator(int symbol) {
+        if (symbol == '/')
             return(division);
-        if (operand == '*')
+        if (symbol == '*')
             return(multiplication);
-        if (operand == '-')
+        if (symbol == '-')
             return(subtraction);
-        if (operand == '+')
+        if (symbol == '+')
             return(addition);
         return(0);
     }
 
-    int calculate(int a, int b, int operand) {
-        switch (operand)
+    int calculate(int operand1, int operand2, int symbol) {
+        switch (symbol)
         {
             case addition:
-                return(a + b);
+                return(operand1 + operand2);
             case subtraction:
-                return(a - b);
+                return(operand1 - operand2);
             case multiplication:
-                return(a * b);
+                return(operand1 * operand2);
             case division:
-                return(a / b);
+                if (operand2 == 0) {
+                    throw std::logic_error("division by zero");
+                }
+                return(operand1 / operand2);
             default:
                 break;
         }
@@ -49,35 +52,42 @@ namespace rpn
 };
 
 RPN::RPN() {};
-RPN::RPN(const RPN &rhs) { (void)rhs;};
-RPN::~RPN() {};
-// RPN &RPN::operator=(const RPN &rhs);
 
-bool isValidNum(const std::string &str) {
+RPN::RPN(const RPN &rhs) { m_stack = rhs.m_stack;};
+
+RPN::~RPN() {};
+
+RPN &RPN::operator=(const RPN &rhs) {
+    if (this != &rhs) {
+        m_stack = rhs.m_stack;
+    }
+    return (*this);
+};
+
+void RPN::ValidNum(const std::string &str) {
     if (rpn::isNumber(str) == false) {
         throw std::logic_error("not a number");
     } else if (str.size() > 1) {
         throw std::logic_error("too high number");
     }
-    return (true);
 }
 
 int RPN::solveExperssion(const std::string &str) {
     char *token = strtok(const_cast<char *>(str.c_str()), " ");
     while (token != NULL)  {
-        if (rpn::retOperand(token[0])) {
+        if (rpn::retOperator(token[0])) {
             if (m_stack.size() < 2) {
                 throw std::logic_error("bad input");
             }
-            int a;
-            int b;
-            a = m_stack.top();
+            int operand1;
+            int operand2;
+            operand1 = m_stack.top();
             m_stack.pop();
-            b = m_stack.top();
+            operand2 = m_stack.top();
             m_stack.pop();
-            int test = rpn::calculate(b, a, rpn::retOperand(token[0]));
-            m_stack.push(test);
-        } else if (isValidNum(token)) {
+            m_stack.push(rpn::calculate(operand2, operand1, rpn::retOperator(token[0])));
+        } else {
+            ValidNum(token);
             m_stack.push(std::strtol(token, NULL, 10));
         }
         token = strtok(NULL, " ");

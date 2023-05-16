@@ -3,11 +3,11 @@
 PmergeMe::PmergeMe() {};
 
 PmergeMe::PmergeMe(const PmergeMe &rhs)
-    : m_dataVector(rhs.m_dataVector), m_dataList(rhs.m_dataList) {};
+    : m_dataBefore(rhs.m_dataBefore), m_dataVector(rhs.m_dataVector), m_dataList(rhs.m_dataList)  {};
 
-PmergeMe::PmergeMe(Vector data) : m_dataVector(data.begin(), data.end()) {};
+PmergeMe::PmergeMe(Vector data) : m_dataBefore(data.begin(), data.end()), m_dataVector(data.begin(), data.end())  {};
 
-PmergeMe::PmergeMe(List data) : m_dataList(data.begin(), data.end()) {};
+PmergeMe::PmergeMe(List data) : m_dataBefore(data.begin(), data.end()), m_dataList(data.begin(), data.end())  {};
 
 PmergeMe::~PmergeMe() {};
 
@@ -15,15 +15,18 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &rhs) {
     if (this != &rhs) {
         m_dataList = rhs.m_dataList;
         m_dataVector = rhs.m_dataVector;
+        m_dataBefore = rhs.m_dataBefore;
     }
     return (*this);
 };
 
 void PmergeMe::fillContainer(Vector data) {
+    m_dataBefore =  Vector(data.begin(), data.end());
     m_dataVector = Vector(data.begin(), data.end());
 };
 
 void PmergeMe::fillContainer(List data) {
+    m_dataBefore =  Vector(data.begin(), data.end());
     m_dataList = List(data.begin(), data.end());
 };
 
@@ -47,6 +50,10 @@ void PmergeMe::sortList() {
         throw std::logic_error("vector is empty");
     }
     mergeSort(m_dataList, 0, m_dataList.size());
+};
+
+void PmergeMe::printDataBefore() const { 
+    printData(m_dataBefore);
 };
 
 void PmergeMe::printDataVector() const { 
@@ -162,4 +169,13 @@ void mergeSort(List &data, const int begin, const int end) {
     mergeSort(data, begin, mid);
     mergeSort(data, mid, end);
     merge(data, begin, mid, end);
+}
+
+
+long double	get_current_time(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000000) + (time.tv_usec));
 }

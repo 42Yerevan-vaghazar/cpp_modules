@@ -2,67 +2,48 @@
 #include <utility>
 #include "PmergeMe.hpp"
 
-// int ft_rand() {
-//     return (std::rand() % 10000000);
-// };
+int main(int ac, char **av) {
+	(void)ac;
+	(void)av;
 
-// void startTime() {
-//      std::high_resolution_clock::time_point t1 = std::high_resolution_clock::now();
-// }
-
-// int main(int ac, char **av) {
-//     (void)ac;
-//     (void)av;
-
-//     if (ac > 1) {
-//         try
-//         {
-//             PmergeMe merge;
-//             merge.fillContainer(std::strtol(av[1], NULL, 10));
-//             // PmergeMe merge;
-//             // int i  = 1;
-//             // while (i < ac) {
-//             //     int tmp = std::strtol(av[i++], NULL, 10);
-//             //     merge.addNum(tmp);
-//             // }
-//             // // merge.printData();
-//             // merge.sortVector();
-//             // // merge.printData();
-//             // merge.isSorted();
-//             // merge.printDataList();
-//             // merge.printDataList();
-//             gettimeof
-//             merge.sortList();
-//             merge.isSortedList();
-//             merge.sortVector();
-//             merge.isSortedVector();
-//         }
-//         catch(const std::exception& e)
-//         {
-//             std::cerr << e.what() << '\n';
-//         }
-//     }
-// }
-
-
-// * time example */
-#include <stdio.h>      /* printf */
-#include <time.h>       /* time_t, struct tm, difftime, time, mktime */
-#include <iostream>       // std::cout, std::endl
-#include <thread>         // std::this_thread::sleep_for
-#include <chrono>
-int main ()
-{
-  time_t timerStart;
-  time_t timerEnd;
-  double seconds;
-
-
-  time(&timerStart);  /* get current time; same as: timer = time(NULL)  */
-  std::this_thread::sleep_for(std::chrono::useconds(1));
-  time(&timerEnd);  /* get current time; same as: timer = time(NULL)  */
-   std::cout << difftime(timerEnd, timerStart) << std::endl;
-
-
-  return 0;
+	if (ac > 1) {
+		try
+		{
+			PmergeMe merge;
+			std::vector<int> numbers;
+			int i  = 1;
+			char *endPtr;
+			while (i < ac) {
+			    int tmp = std::strtol(av[i++], &endPtr, 10);
+				if (*endPtr != '\0') {
+					std::cerr << "Invalid arguments" << std::endl;
+					return (1);
+				}
+			    numbers.push_back(tmp);
+			}
+			merge.fillContainer(numbers);
+			merge.fillContainer(List(numbers.begin(), numbers.end()));
+			double timeVectorStart = get_current_time();
+			merge.sortVector();
+			double timeVectorEnd = get_current_time();
+			double timeListStart = get_current_time();
+			merge.sortList();
+			double timeListEnd = get_current_time();
+			std::setprecision(3);
+			std::cout << "Before:  ";
+			merge.printDataBefore();
+			std::cout << "After:   ";
+			merge.printDataVector();
+			std::cout << "Time to process a range of " << numbers.size() << " elements with std::vector : " << (timeVectorEnd - timeVectorStart) / 1000 << " ms" << std::endl;
+			std::cout << "Time to process a range of " << numbers.size() << " elements with std::list   : " << (timeListEnd - timeListStart) / 1000 << " ms" << std::endl;
+			// merge.isSortedVector();
+			// merge.isSortedList();
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << '\n';
+		}
+	} else {
+		std::cout << "Usage: ./PmergeMe [1] [2] ..." << std::endl;
+	}
 }

@@ -19,7 +19,9 @@ Bureaucrat::Bureaucrat(const Bureaucrat &obj) : m_name(obj.m_name) {
     m_grade = obj.m_grade;
 };
 
-Bureaucrat::~Bureaucrat() {};
+Bureaucrat::~Bureaucrat() {
+    std::cout << "Bureaucrat destructor called\n";
+};
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &obj) {
     m_grade = obj.m_grade;

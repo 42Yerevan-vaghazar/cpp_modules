@@ -1,19 +1,32 @@
 #include "iter.hpp"
-
-template <typename T>
-void print(T &a) {
-    std::cout  << "a = " << a << std::endl;
+class Awesome
+{
+  public:
+    Awesome( void ) : _n( 42 ) { return; }
+    int get( void ) const { return this->_n; }
+  private:
+    int _n;
 };
 
-int main( void ) {
-    const int len = 10;
-    const double a[len] = {1, 2, 3, 8, 1, 2, 5, 6, 7};
-    const int b[len] = {1, 2, 3, 8, 1, 2, 5, 6, 7};
-    iter<const double>(a, len, &print);
-    iter<const int>(b, len, &print);
-    for (size_t i = 0; i < len; i++) {
-        std::cout << a[i] << " ";
-    }
-    std::cout << std::endl;
-    return 0;
+std::ostream & operator<<( std::ostream & o, Awesome const & rhs )
+{
+  o << rhs.get();
+  return o;
+}
+
+template< typename T >
+void print( T& x )
+{
+  std::cout << x << std::endl;
+  return;
+}
+
+int main() {
+  int tab[] = { 0, 1, 2, 3, 4 };
+  Awesome tab2[5];
+
+  iter( tab, 5, print<const int> );
+  iter( tab2, 5, print<Awesome> );
+
+  return 0;
 }

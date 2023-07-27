@@ -27,6 +27,7 @@ int main() {
 
   iter( tab, 5, print<const int> );
   iter( tab2, 5, print<Awesome> );
+  iter( tab2, 5, print);
 
   return 0;
 }

@@ -16,7 +16,7 @@ class Span
 		unsigned int shortestSpan() ;
 		unsigned int longestSpan() const;
 		template <typename T>
-		void fillSpan(T begin, T end) {
+		void fillSpan(std::iterator<std::forward_iterator_tag, T> begin, std::iterator<std::forward_iterator_tag, T> end) {
 			while (begin != end) {
 				addNumber(*begin);
 				++begin;

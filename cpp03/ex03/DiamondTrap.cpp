@@ -1,31 +1,38 @@
 #include "DiamondTrap.hpp"
 #include "ScavTrap.hpp"
 
+std::string print() {
+    std::cout << "print\n";
+    return(std::string("fadsfasdf"));
+}
 
-DiamondTrap::DiamondTrap() {
-    m_name = "default_name";
-    m_hit = FragTrap::m_hit;
-    m_energy = ScavTrap::m_energy;
-    m_attackDamage = FragTrap::m_attackDamage;
-    m_name = ClapTrap::m_name + "_clap_name";
+
+DiamondTrap::DiamondTrap() : ScavTrap(print()), FragTrap("sfafs")  {
+    // m_name = "default_name";
+    // m_hit = FragTrap::m_hit;
+    // m_energy = ScavTrap::m_energy;
+    // m_attackDamage = FragTrap::m_attackDamage;
+    // m_name = ClapTrap::m_name + "_clap_name";
     std::cout << "DiamondTrap default constructor called" << std::endl;
 };
 
 DiamondTrap::DiamondTrap(const std::string name) {
-    m_name = name;
-    m_hit = FragTrap::m_hit;
-    m_energy = ScavTrap::m_energy;
-    m_attackDamage = FragTrap::m_attackDamage;
-    m_name = ClapTrap::m_name + "_clap_name";
+    // m_name = name;
+    // m_hit = FragTrap::m_hit;
+    // m_energy = ScavTrap::m_energy;
+    // m_attackDamage = FragTrap::m_attackDamage;
+    // m_name = ClapTrap::m_name + "_clap_name";
     std::cout << "DiamondTrap parametr constructor called" << std::endl;
 };
 
-DiamondTrap::DiamondTrap(const DiamondTrap &obj) {
+DiamondTrap::DiamondTrap(const DiamondTrap &obj) 
+    // : ClapTrap(obj), FragTrap(obj), ScavTrap(obj)
+ {
     m_name = obj.m_name;
-    m_hit = FragTrap::m_hit;
-    m_energy = ScavTrap::m_energy;
-    m_attackDamage = FragTrap::m_attackDamage;
-    m_name = obj.m_name + "_clap_name";
+    // m_hit = FragTrap::m_hit;
+    // m_energy = ScavTrap::m_energy;
+    // m_attackDamage = FragTrap::m_attackDamage;
+    // m_name = obj.m_name + "_clap_name";
     std::cout << "DiamondTrap copy constructor called" << std::endl;
 };
 
@@ -34,10 +41,10 @@ DiamondTrap::~DiamondTrap() {
 };
 
 DiamondTrap &DiamondTrap::operator=(const DiamondTrap &obj) {
-    m_name = obj.m_name;
-    m_hit = obj.m_hit;
-    m_energy = obj.m_energy;
-    m_attackDamage = obj.m_attackDamage;
+    // m_name = obj.m_name;
+    // m_hit = obj.m_hit;
+    // m_energy = obj.m_energy;
+    // m_attackDamage = obj.m_attackDamage;
     std::cout << "DiamondTrap assignment operator called" << std::endl;
     return (*this);
 };
@@ -47,6 +54,6 @@ void DiamondTrap::attack(const std::string& target) {
 };
 
 void DiamondTrap::whoAmI() {
-    std::cout << m_name << std::endl;
-    std::cout << ClapTrap::m_name << std::endl;
+    // std::cout << m_name << std::endl;
+    // std::cout << ClapTrap::m_name << std::endl;
 };

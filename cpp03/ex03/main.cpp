@@ -7,10 +7,13 @@
 #include <locale>
 
 int main( void ) {
-	DiamondTrap c("barev");
-	DiamondTrap test(DiamondTrap(DiamondTrap(DiamondTrap())));
+	DiamondTrap c;
+	// std::cout << sizeof(DiamondTrap) << std::endl;
+	// std::cout << sizeof(std::string) << std::endl;
+	// DiamondTrap a(c);
+	// DiamondTrap test(DiamondTrap(DiamondTrap(DiamondTrap())));
 	// c.whoAmI();
-	c.attack("poxos");
+	// c.attack("poxos");
 	// c.takeDamage(11);
 	// c.beRepaired(120);
 	// c.guardGate();

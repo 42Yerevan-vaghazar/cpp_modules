@@ -23,8 +23,6 @@ class Form
         const short m_gradeToSign;
         const short m_gradeToExecute;  // TODO what is this for.
     private:
-        short isValid(const int grade) const;
-    private:
         class GradeError : public std::exception
         {
             public:

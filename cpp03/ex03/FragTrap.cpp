@@ -7,8 +7,7 @@ FragTrap::FragTrap() {
     m_attackDamage = 30;
 };
 
-FragTrap::FragTrap(const std::string &name) {
-    m_name = name;
+FragTrap::FragTrap(const std::string &name) : ClapTrap(name) {
     m_hit = 100;
     m_energy = 100;
     m_attackDamage = 30;

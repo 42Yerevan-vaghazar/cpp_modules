@@ -10,7 +10,8 @@ class Array
         Array(const Array &obj);
         ~Array();
         Array &operator=(const Array &obj);
-        T &operator[](const size_t index) const;
+        T &operator[](const size_t index);
+        const T &operator[](const size_t index) const;
         size_t size() const;
     private:
         size_t m_size;
@@ -57,7 +58,15 @@ Array<T> &Array<T>::operator=(const Array &obj) {
 };
 
 template <typename T>
-T &Array<T>::operator[](const size_t index) const {
+T &Array<T>::operator[](const size_t index) {
+    if (index > m_size - 1 || m_elems == NULL) {
+        throw std::range_error("out of range");
+    }
+    return (m_elems[index]);
+};
+
+template <typename T>
+const T &Array<T>::operator[](const size_t index) const {
     if (index < 0 || index > m_size - 1 || m_elems == NULL) {
         throw std::range_error("out of range");
     }

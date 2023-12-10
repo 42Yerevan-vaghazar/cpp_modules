@@ -2,9 +2,16 @@ NAME = easyFind
 
 TMP = objs
 
-CXX = c++
+UNAME := $(shell uname)
 
-CXXFLAGS = -std=c++98 -Wall -Wextra -Werror
+
+ifeq ($(UNAME), Linux)
+CXX = c++ -std=c++11
+else
+CXX = c++ -std=c++98
+endif
+
+CXXFLAGS = -Wall -Wextra -Werror
 
 SRCS = $(wildcard *.cpp)
 

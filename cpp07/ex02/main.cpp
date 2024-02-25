@@ -1,8 +1,13 @@
 #include "Array.hpp"
-
+#include <string>
 int main( void ) {
     const int elems = 15;
     Array<std::string> a(elems);
+    const Array<std::string> b(elems);
+
+    // b[0] = "barev";
+    a[0] = "barev";
+
 
     for (size_t i = 0; i < elems; i++) {
         a[i] = std::to_string(i) + "barev";

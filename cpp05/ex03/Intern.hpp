@@ -6,7 +6,6 @@ class Intern
 {
     public:
         Intern();
-        Intern(const std::string &name, const int grade);
         Intern(const Intern &obj);
         ~Intern();
         Intern &operator=(const Intern &obj);

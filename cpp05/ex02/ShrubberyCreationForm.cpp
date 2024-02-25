@@ -5,7 +5,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm(
     m_target = target;
 };
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &obj) {
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &obj) : AForm(obj) {
     m_target = obj.m_target;
 };
 
@@ -13,6 +13,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {};
 
 ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &obj) {
     if (this != &obj) {
+        AForm::operator=(obj);
         m_target = obj.m_target;
     }
     return (*this);

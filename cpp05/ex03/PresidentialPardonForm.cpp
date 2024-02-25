@@ -6,7 +6,7 @@ PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : AFor
     m_target = target;
 };
 
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &obj) {
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &obj) : AForm(obj) {
     m_target = obj.m_target;
 };
 
@@ -16,6 +16,7 @@ PresidentialPardonForm::~PresidentialPardonForm() {
 
 PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPardonForm &obj) {
     if (this != &obj) {
+        AForm::operator=(obj);
         m_target = obj.m_target;
     }
     return (*this);

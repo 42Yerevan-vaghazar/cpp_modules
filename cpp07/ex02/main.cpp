@@ -11,6 +11,9 @@ int main( void ) {
         std::cout << a[i] << std::endl;
     }
     std::cout << std::endl;
+    const Array<std::string> test(a);
+    test[5];
+    std::cout << "test = " << test[5] << std::endl;
     try {
         Array<std::string> test = a;
         Array<std::string> test1;
